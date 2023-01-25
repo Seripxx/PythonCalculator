@@ -1,5 +1,6 @@
 import math
 import tkinter as tk
+import tkinter.messagebox as mb
 window = tk.Tk()
 #Sets the window size
 window.geometry("500x70")
@@ -8,32 +9,64 @@ window.title('Seripxx Calculator')
 
 #Function for addition
 def addition():
-    num1 = float(entry1.get())
-    num2 = float(entry2.get())
-    result = num1 + num2
-    result_label.config(font = 100,text="Result: " + str(result))
+    while True:
+        try:
+            num1 = float(entry1.get())
+            num2 = float(entry2.get())
+            result = num1 + num2
+            result_label.config(font = 100,text="Result: " + str(result))
+            break
+        except ValueError as err:
+            print("Please only enter numbers")
+            mb.showerror(title="Error", message="Please only enter numbers")
+            return
 
 #Function for subtraction
 def subtraction():
-    num1 = float(entry1.get())
-    num2 = float(entry2.get())
-    result = num1 - num2
-    result_label.config(font = 100,text="Result: " + str(result))
+    while True:
+        try:
+            num1 = float(entry1.get())
+            num2 = float(entry2.get())
+            result = num1 - num2
+            result_label.config(font = 100,text="Result: " + str(result))
+            break
+        except ValueError as err:
+            print("Please only enter numbers")
+            mb.showerror(title="Error", message="Please only enter numbers")
+            return
 
 #Function for multiplication
 def multiplication():
-    num1 = float(entry1.get())
-    num2 = float(entry2.get())
-    result = num1 * num2
-    result_label.config(font = 100,text="Result: " + str(result))    
-
+    while True:
+        try:
+            num1 = float(entry1.get())
+            num2 = float(entry2.get())
+            result = num1 * num2
+            result_label.config(font = 100,text="Result: " + str(result))
+            break
+        except ValueError as err:
+            print("Please only enter numbers")
+            mb.showerror(title="Error", message="Please only enter numbers")
+            return
 #Function for division
 def division():
-    num1 = float(entry1.get())
-    num2 = float(entry2.get())
-    result = num1 / num2
-    result_label.config(font = 100, text="Result: " + str(result))  
-      
+    while True:
+        try:
+            num1 = float(entry1.get())
+            num2 = float(entry2.get())
+            result = num1 / num2
+            result_label.config(font = 100, text="Result: " + str(result))  
+            break
+        except ZeroDivisionError as err:
+            print("Handling run-time error:", err)
+            mb.showerror(title="Error", message="Unable to divide by Zero",)
+            return
+        except ValueError as err:
+            print("Please only enter numbers")
+            mb.showerror(title="Error", message="Please only enter numbers",)
+            return
+
+
 #Function for clearing text fields.
 def clear():
     result_label.config(font = 100, text = "Result:")
