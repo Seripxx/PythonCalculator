@@ -109,7 +109,7 @@ result_frame.grid(row=2, column=0, columnspan=4, sticky="nsew")
 
 # Create result label and add it to the result frame
 result_label = tk.Label(result_frame, text="Result: ")
-result_label.grid(row=2, column=0, columnspan=4, sticky="nsew" )
+result_label.grid(row=0, column=0, columnspan=4, sticky="nsew" )
 
 #Create a frame to hold the clear button
 clear_frame = tk.Frame(window)
