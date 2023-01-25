@@ -1,33 +1,120 @@
-import math
 import tkinter as tk
+import tkinter.messagebox as mb
+
+#Error handling needs return at the end to end the function otherwise it will loop the print and showerror command.
+#Function for addition
+def addition():
+    while True:
+        try:
+            num1 = float(entry1.get())
+            num2 = float(entry2.get())
+            result = num1 + num2
+            result_label.config(text="Result: " + str(result))
+            break
+        except ValueError as err:
+            print("Please only enter numbers")
+            mb.showerror(title="Error", message="Please only enter numbers")
+            return
+
+#Function for subtraction
+def subtraction():
+    while True:
+        try:
+            num1 = float(entry1.get())
+            num2 = float(entry2.get())
+            result = num1 - num2
+            result_label.config(text="Result: " + str(result))
+            break
+        except ValueError as err:
+            print("Please only enter numbers")
+            mb.showerror(title="Error", message="Please only enter numbers")
+            return
+
+#Function for multiplication
+def multiplication():
+    while True:
+        try:
+            num1 = float(entry1.get())
+            num2 = float(entry2.get())
+            result = num1 * num2
+            result_label.config(text="Result: " + str(result))
+            break
+        except ValueError as err:
+            print("Please only enter numbers")
+            mb.showerror(title="Error", message="Please only enter numbers")
+            return
+#Function for division
+def division():
+    while True:
+        try:
+            num1 = float(entry1.get())
+            num2 = float(entry2.get())
+            result = num1 / num2
+            result_label.config(text="Result: " + str(result))  
+            break
+        except ZeroDivisionError as err:
+            print("Handling run-time error:", err)
+            mb.showerror(title="Error", message="Unable to divide by Zero",)
+            return
+        except ValueError as err:
+            print("Please only enter numbers")
+            mb.showerror(title="Error", message="Please only enter numbers",)
+            return
+
+
+#Function for clearing text fields.
+def clear():
+    result_label.config(text = "Result:")
+    entry1.delete(0, 'end')
+    entry2.delete(0, 'end')
+    return
+
+
 window = tk.Tk()
-#Sets the window size
-window.geometry("500x70")
-#Sets the window/program Name
 window.title('Seripxx Calculator')
 
 
-bottom_frame = tk.Frame(window,width = 50, height =50, bg='grey')
-bottom_frame.grid(row=2, column=0)
-result_bar = tk.Frame(bottom_frame, width= 20, height = 20, bg='white')
-result_bar.grid(row=0, column=0)
-tk.Label(result_bar, text="Result:").grid(row=1, column=0, padx=0)
+# Configure the rows and columns to have a non-zero weight
+for i in range(4):
+    window.columnconfigure(i, weight=1)
+    window.rowconfigure(i, weight=1)
 
-left_frame = tk.Frame(window, width=200, height=400, bg='grey')
-left_frame.grid(row=0, column=0, padx=0, pady=0)
+# Create a frame to hold the entry fields
+entry_frame = tk.Frame(window)
+entry_frame.grid(row=0, column=0, columnspan=4, sticky="nsew")
 
-right_frame = tk.Frame(window, width=650, height=50, bg='grey')
-right_frame.grid(row=0, column=1, padx=0, pady=0)
+# Create entry fields and add them to the entry frame
+entry1 = tk.Entry(entry_frame)
+entry1.grid(row=0, column=0, padx=5, pady=5, ipadx=5, ipady=5, sticky="nsew")
+entry2 = tk.Entry(entry_frame)
+entry2.grid(row=1, column=0, padx=5, pady=5, ipadx=5, ipady=5, sticky="nsew")
 
-tool_bar = tk.Frame(left_frame, width=100, height=200)
-tool_bar.grid(row=0, column=0, padx=8, pady=5)
-tk.Button(tool_bar, text="+", relief=tk.RAISED).grid(row=0, column=0, padx=5, pady=3, ipadx=10)  # ipadx is padding inside the Label widget
-tk.Button(tool_bar, text="-", relief=tk.RAISED).grid(row=1, column=0, padx=5, pady=3, ipadx=10)  # ipadx is padding inside the Label widget
-tk.Button(tool_bar, text="/", relief=tk.RAISED).grid(row=0, column=1, padx=5, pady=3, ipadx=10)  # ipadx is padding inside the Label widget
-tk.Button(tool_bar, text="*", relief=tk.RAISED).grid(row=1, column=1, padx=5, pady=3, ipadx=10)  # ipadx is padding inside the Label widget
+# Create a frame to hold the buttons
+button_frame = tk.Frame(window)
+button_frame.grid(row=1, column=0, columnspan=4, sticky="nsew")
 
-entry_text = tk.Frame(right_frame, width=0, height = 0, bg ='grey')
-entry_text.grid(row=0, column = 0)
-tk.Entry(entry_text, text="", relief=tk.SUNKEN).grid(row=0, column=0, padx=10, pady=10, ipadx=10)  # ipadx is padding inside the Label widget
-tk.Entry(entry_text, text="", relief=tk.SUNKEN).grid(row=1, column=0, padx=10, pady=10, ipadx=10)  # ipadx is padding inside the Label widget
+# Create buttons and add them to the button frame
+add_button = tk.Button(button_frame, text="+", command=addition)
+add_button.grid(row=0, column=0, padx=5, pady=5, ipadx=5, ipady=5, sticky="nsew")
+subtract_button = tk.Button(button_frame, text="-", command=subtraction)
+subtract_button.grid(row=0, column = 1, padx=5, pady=5, ipadx=5, ipady=5, sticky="nsew")
+multiply_button = tk.Button(button_frame, text="*", command=multiplication)
+multiply_button.grid(row=0, column = 2, padx=5, pady=5, ipadx=5, ipady=5, sticky="nsew")
+divide_button = tk.Button(button_frame, text="/", command=division)
+divide_button.grid(row=0, column = 3, padx=5, pady=5, ipadx=5, ipady=5, sticky="nsew")
+
+# Create a frame to hold the result label
+result_frame = tk.Frame(window)
+result_frame.grid(row=2, column=0, columnspan=4, sticky="nsew")
+
+# Create result label and add it to the result frame
+result_label = tk.Label(result_frame, text="Result: ")
+result_label.grid(row=2, column=0, columnspan=4, sticky="nsew" )
+
+#Create a frame to hold the clear button
+clear_frame = tk.Frame(window)
+clear_frame.grid(row=2, column=3, columnspan=4, sticky="nsew")
+#Create a clear button and add it next to the clear frame.
+clear_button = tk.Button(clear_frame, text="Clear", command=clear)
+clear_button.grid(row=0, column=0, columnspan=4, sticky="nsew")
 window.mainloop()

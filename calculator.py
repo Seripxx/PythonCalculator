@@ -7,6 +7,7 @@ window.geometry("500x70")
 #Sets the window/program Name
 window.title('Seripxx Calculator')
 
+#Error handling needs return at the end to end the function otherwise it will loop the print and showerror command.
 #Function for addition
 def addition():
     while True:
